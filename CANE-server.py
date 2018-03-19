@@ -1,6 +1,7 @@
 from bluetooth import *
 
-client_address = "B8:27:EB:D4:16:2E"
+#client_address = "B8:27:EB:D4:16:2E"
+client_address = "B8:27:EB:6E:D4:DF"
 
 def main():
     global server_sock
