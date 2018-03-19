@@ -88,7 +88,7 @@ class UltrasonicStateMachine:
             self.calculateValues()
             self.consecutiveTimeouts = 0
         else:
-	    print("pin: " + str(self.echoPin) + " timed out!")
+	    #print("pin: " + str(self.echoPin) + " timed out!")
             self.consecutiveTimeouts += 1
             if self.consecutiveTimeouts > 50:
                 self.blipsFrequency = 0.001
@@ -152,8 +152,8 @@ class UltrasonicStateMachine:
             sum += item
 
         mean = sum / len(hist)
-        if self.echoPin == 5:
-	     print("pin: " + str(self.echoPin) + " histDistance: " + str(mean))
+        #if self.echoPin == 5:
+	     #print("pin: " + str(self.echoPin) + " histDistance: " + str(mean))
         return mean
 
     def calculateBlipFrequency(self):
