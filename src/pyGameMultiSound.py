@@ -43,6 +43,7 @@ class PyGameSoundThread (Thread):
         while self.is_robotting:
             for i in range(len(self.sounds)):
                 if time.time() > self.lastPlayTimes[i] + self.blipLength + self.delays[i]:
+                    #print("beep: " + str(i))
                     self.soundChannels[i].play(self.sounds[i])
 	            self.lastPlayTimes[i] = time.time()
 	        if time.time() > self.lastPlayTimes[i] + self.blipLength:

@@ -8,13 +8,10 @@ class UltrasonicThread (threading.Thread):
     soundThreads = None
     #dropoffFile
 
-    def __init__(self, triggerPins, echoPins, distanceOptions, soundThreads):
+    def __init__(self, stateMachines, soundThreads):
         threading.Thread.__init__(self)
-        self.stateMachines = [] # Initialize stateMachines as a list.
-        for trigger, echo, distOptions in zip(triggerPins, echoPins, distanceOptions):
-            machine = UltrasonicStateMachine(trigger, echo)
-            machine.distanceOptions = distOptions
-            self.stateMachines.append(machine)
+        self.stateMachines = stateMachines
+        
         #self.dropoffFile = open("dropoffEnabled.txt", "w")
         self.soundThreads = soundThreads
         for thread in soundThreads:
@@ -44,6 +41,15 @@ class DistanceOptions:
         self.inverseConstant = 1
         self.frontSensor = False
 
+class ServerCommStateMachine:
+    blipsFrequency = 0.0
+
+    def __init__(self):
+        self.blipsFrequency = 0.001 # Default frequency when starting out.
+    
+    def findDistance(self):
+        pass
+
 class UltrasonicStateMachine:
     # All methods in the state machine should be non-blocking.
     timedOut = False
@@ -60,12 +66,14 @@ class UltrasonicStateMachine:
     consecutiveTimeouts = 0
 
     distanceHistory = None #collections.deque, a history of the most recent distance measurements.
-
-    def __init__(self, triggerPin, echoPin):
+    
+    def __init__(self, triggerPin, echoPin, distanceOptions):
         self.triggerPin = triggerPin
         self.echoPin = echoPin
 
         self.blipsFrequency = 0.001 # Default frequency when starting out.
+
+        self.distanceOptions = distanceOptions
 
         self.distanceHistory = collections.deque([2.0]*21)
         self.setUpGPIO()
