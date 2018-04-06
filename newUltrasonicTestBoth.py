@@ -1,5 +1,6 @@
 from src.newUltrasonic import *
 from src.pyGameMultiSound import *
+from src.caneServer import *
 
 sideOpt = DistanceOptions()
 sideOpt.minDistance = 0.02
@@ -17,6 +18,9 @@ sideLeftSM = ServerCommStateMachine()
 frontLeftSM = ServerCommStateMachine()
 frontRightSM = UltrasonicStateMachine(24, 4, frontOpt)
 sideRightSM = UltrasonicStateMachine(24, 12, sideOpt)
+
+server = CANEServer(sideLeftSM, frontLeftSM)
+#server.start()
 
 thread = UltrasonicThread([sideLeftSM, frontLeftSM, frontRightSM, sideRightSM],
                           [sound,      sound,       sound,        sound      ])
