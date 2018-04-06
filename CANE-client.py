@@ -34,12 +34,14 @@ def main():
     sock = BluetoothSocket( RFCOMM )
     sock.connect((host_address, port))
     
+    print("Connected")
     while True:
         processCommand(sock.recv(1024))
     sock.close()
 
 def processCommand(command):
     global sock
+    print("received command: " + str(command))
     if command == "getDropOff":
         sock.send(getDropOffStatus())
     elif command == "getSideUltrasonic":
