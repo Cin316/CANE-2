@@ -1,28 +1,16 @@
 import time
-from src.ultrasonic import *
 import RPi.GPIO as gpio
 
 class TimeoutException(Exception):
 	pass
-"""
-frontSensor = UltrasonicSensor(24, 5, 0, 10.0, 0.1, 10)
-sideSensor = UltrasonicSensor(24, 12, 0, 10.0, 0.1, 10)
 
-while True:
-	frontSensor.ping()
-	frontSensor.find_distance()
-	time.sleep(0.5)
-	#sideSensor.ping()
-	#sideSensor.find_distance()
-	#time.sleep(0.5)
-"""
 gpio.setmode(gpio.BCM)
 
 gpio.setup(24, gpio.OUT)
 
 # 5 is the front sensor
 # 12 is the side sensor
-echoPin = 5
+echoPin = 12
 
 gpio.setup(echoPin, gpio.IN)
 
