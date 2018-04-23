@@ -16,7 +16,7 @@ sound = PyGameSoundThread(["sound/98left.wav", "sound/884left.wav", "sound/884ri
 
 sideLeftSM = ServerCommStateMachine()
 frontLeftSM = ServerCommStateMachine()
-frontRightSM = UltrasonicStateMachine(24, 4, frontOpt)
+frontRightSM = UltrasonicStateMachine(24, 5, frontOpt)
 sideRightSM = UltrasonicStateMachine(24, 12, sideOpt)
 
 server = CANEServer(sideLeftSM, frontLeftSM)

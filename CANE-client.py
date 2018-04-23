@@ -20,10 +20,11 @@ frontOpt.frontSensor = True
 
 sound = DummySoundThread(2)
 
-thread = UltrasonicThread([24,             24            ],
-                          [12,             5             ],
-                          [sideOpt,        frontOpt      ],
-                          [sound,         sound         ])
+sideLeftSM = UltrasonicStateMachine(24, 12, sideOpt)
+frontLeftSM = UltrasonicStateMachine(24, 5, frontOpt)
+
+thread = UltrasonicThread([sideLeftSM, frontLeftSM],
+                          [sound,      sound      ])
 
 def main():
     global sock
