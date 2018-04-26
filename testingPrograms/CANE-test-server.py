@@ -16,8 +16,10 @@ def main():
     
     client_sock, client_info = server_sock.accept()
     print "Accepted connection from ", client_info
+    print "client_address:" + str(client_address)
     
     connection_address = client_info[0]
+    print "connection_address:" + str(connection_address)
     if connection_address == client_address:
         try:
             while True:
