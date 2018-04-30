@@ -1,6 +1,7 @@
 from src.newUltrasonic import *
 from src.pyGameMultiSound import *
 from src.caneServer import *
+from src.laserSensor import *
 
 sideOpt = DistanceOptions()
 sideOpt.minDistance = 0.02
@@ -13,6 +14,8 @@ frontOpt.inverseConstant = 1
 frontOpt.frontSensor = True
 
 sound = PyGameSoundThread(["sound/98left.wav", "sound/884left.wav", "sound/884right.wav", "sound/98right.wav"]) # TODO This ordering is probably all mixed up.
+
+laser = LaserSensor()
 
 sideLeftSM = ServerCommStateMachine()
 frontLeftSM = ServerCommStateMachine()

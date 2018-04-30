@@ -3,6 +3,7 @@ import sys
 import random
 from src.newUltrasonic import *
 from src.dummySound import *
+from src.laserSensor import *
 
 #host_address = "B8:27:EB:6E:D4:DF"
 host_address = "B8:27:EB:D4:16:2E"
@@ -25,6 +26,8 @@ frontLeftSM = UltrasonicStateMachine(24, 5, frontOpt)
 
 thread = UltrasonicThread([sideLeftSM, frontLeftSM],
                           [sound,      sound      ])
+
+laser = LaserSensor()
 
 def main():
     global sock
@@ -52,7 +55,7 @@ def processCommand(command):
     return;
 
 def getDropOffStatus():
-    return "NO" 
+    return laser.status() 
 
 def getSideUltrasonicStatus():
     return str(sound.frequencies[0])
