@@ -15,12 +15,15 @@ class CANEServer (Thread):
     # client_info: an array containing info about the current client
     # sideLeftServerComm: the ServerComm object where the side left ultrasonic sensor data should go
     # frontLeftServerComm: the ServerComm object where the front left ultrasonic sensor data should go
+    # dummyLaser: a dummy object to hold the status of the client's laser sensor.
 
-    def __init__(self, sideLeftSC, frontLeftSC):
+    def __init__(self, sideLeftSC, frontLeftSC, dummyLsr):
         Thread.__init__(self)
 
         self.sideLeftServerComm = sideLeftSC
         self.frontLeftServerComm = frontLeftSC
+
+        self.dummyLaser = dummyLsr
         
         self.server_sock = BluetoothSocket( RFCOMM )
         self.server_sock.bind(("",PORT_ANY))
@@ -32,12 +35,19 @@ class CANEServer (Thread):
 
         while connection_address == client_address: # TODO Improve client address checking.
             print("pinging the client...")
+            
             sideData = self.sideUltrasonicCommand()
             print("sideData: " + str(sideData))
             self.sideLeftServerComm.blipsFrequency = float(sideData)
+            
             frontData = self.frontUltrasonicCommand()
             print("frontData: " + str(frontData))
             self.frontLeftServerComm.blipsFrequency = float(frontData)
+            
+            dropOffData = self.dropOffCommand()
+            print(dropOffData: " str(dropOffData))
+            self.dummyLaser.value = convertBool(dropOffData)
+            
             time.sleep(0.1)
         
         print("server terminated!")
@@ -64,6 +74,13 @@ class CANEServer (Thread):
         self.client_sock.send("getFrontUltrasonic")
         data = self.client_sock.recv(1024)
         return data
+    
+    # Converts a YES or NO string into a boolean
+    def convertBool(string):
+        if string=="YES":
+            return True
+        else:
+            return False
 
 
 

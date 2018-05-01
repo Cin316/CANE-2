@@ -10,10 +10,18 @@ class LaserSensor:
     
     def status(self):
         if GPIO.input(self.dropoffPin)==1:
-            return "YES"
+            return True
         else:
-            return "NO"
+            return False
     
 
+
+class DummyLaserSensor:
+
+    def __init__(self):
+        self.value = False
+    
+    def status(self):
+        return self.value
 
 

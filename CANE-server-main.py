@@ -13,20 +13,25 @@ frontOpt.maxDistance = 3.5
 frontOpt.inverseConstant = 1
 frontOpt.frontSensor = True
 
-sound = PyGameSoundThread(["sound/98left.wav", "sound/884left.wav", "sound/884right.wav", "sound/98right.wav"]) # TODO This ordering is probably all mixed up.
+sound = PyGameSoundThread(["sound/98left.wav", "sound/884left.wav", "sound/884right.wav", "sound/98right.wav", "sound/dropoffRight.wav", "sound/dropoffLeft.wav"]) # TODO This ordering is probably all mixed up.
 
 laser = LaserSensor()
+dummyLaser = DummyLaserSensor()
+
+laserTransfer = LaserSensorSoundTransfer(sound, [laser, dummyLaser], [4, 5])
+laserTransfer.start()
 
 sideLeftSM = ServerCommStateMachine()
 frontLeftSM = ServerCommStateMachine()
 frontRightSM = UltrasonicStateMachine(24, 5, frontOpt)
 sideRightSM = UltrasonicStateMachine(24, 12, sideOpt)
 
-server = CANEServer(sideLeftSM, frontLeftSM)
-#server.start()
+server = CANEServer(sideLeftSM, frontLeftSM, dummyLaser)
+server.start()
 
 thread = UltrasonicThread([sideLeftSM, frontLeftSM, frontRightSM, sideRightSM],
                           [sound,      sound,       sound,        sound      ])
 
 thread.start()
 thread.join()
+
