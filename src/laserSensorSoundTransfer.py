@@ -1,10 +1,10 @@
-from src.laserSensor import *
 import time
-import threading
+from threading import Thread
 
-class LaserSensorSoundTransfer (threading.Thread):
+class LaserSensorSoundTransfer (Thread):
     
     def __init__(self, soundThread, lasers, ids):
+        Thread.__init__(self)
         self.soundThread = soundThread
         self.lasers = lasers
         self.ids = ids
@@ -12,10 +12,10 @@ class LaserSensorSoundTransfer (threading.Thread):
     def run(self):
         while True:
             for laser, ID in zip(self.lasers, self.ids):
-                self.soundThread.set_frequency(toFreq(laser.status()), ID)
-            sleep(0.05)
+                self.soundThread.set_frequency(self.toFreq(laser.status()), ID)
+            time.sleep(0.05)
     
-    def toFreq(statusBool):
+    def toFreq(self, statusBool):
         if statusBool == True:
             return 0.2
         else:

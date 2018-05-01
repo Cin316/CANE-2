@@ -2,6 +2,7 @@ from src.newUltrasonic import *
 from src.pyGameMultiSound import *
 from src.caneServer import *
 from src.laserSensor import *
+from src.laserSensorSoundTransfer import *
 
 sideOpt = DistanceOptions()
 sideOpt.minDistance = 0.02

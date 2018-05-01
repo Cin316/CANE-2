@@ -45,8 +45,8 @@ class CANEServer (Thread):
             self.frontLeftServerComm.blipsFrequency = float(frontData)
             
             dropOffData = self.dropOffCommand()
-            print(dropOffData: " str(dropOffData))
-            self.dummyLaser.value = convertBool(dropOffData)
+            print("dropOffData: " + str(dropOffData))
+            self.dummyLaser.value = self.convertBool(dropOffData)
             
             time.sleep(0.1)
         
@@ -76,7 +76,7 @@ class CANEServer (Thread):
         return data
     
     # Converts a YES or NO string into a boolean
-    def convertBool(string):
+    def convertBool(self, string):
         if string=="YES":
             return True
         else:
