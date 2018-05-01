@@ -57,6 +57,13 @@ def processCommand(command):
 def getDropOffStatus():
     return laser.status() 
 
+# Convert a boolean into a YES or NO string
+def boolToString(statusBool):
+    if statusBool:
+        return "YES"
+    else:
+        return "NO"
+
 def getSideUltrasonicStatus():
     return str(sound.frequencies[0])
 
