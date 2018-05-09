@@ -47,7 +47,7 @@ def processCommand(command):
     global sock
     print("received command: " + str(command))
     if command == "getDropOff":
-        sock.send(getDropOffStatus())
+        sock.send(boolToString(getDropOffStatus()))
     elif command == "getSideUltrasonic":
         sock.send(getSideUltrasonicStatus())
     elif command == "getFrontUltrasonic":
