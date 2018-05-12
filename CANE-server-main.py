@@ -16,6 +16,9 @@ frontOpt.frontSensor = True
 
 sound = PyGameSoundThread(["sound/98left.wav", "sound/884left.wav", "sound/884right.wav", "sound/98right.wav", "sound/dropoffRight.wav", "sound/dropoffLeft.wav"]) # TODO This ordering is probably all mixed up.
 
+sound.blipLengths[4] = 2.0
+sound.blipLengths[5] = 2.0
+
 laser = LaserSensor()
 dummyLaser = DummyLaserSensor()
 

@@ -16,17 +16,20 @@ class PyGameSoundThread (Thread):
     # delays: An array of the waiting periods between plays, calculated from the frequency
     # lastPlayTimes: An array of the last times it started playing the sound
 
+    # blipLengths: An array of how long each sound should be played.  This is also the minimum time between sounds.
+
     def __init__(self, filenames):
         Thread.__init__(self)
         
-	self.blipLength = 0.075
+	self.defaultBlipLength = 0.075
         
-        pygame.mixer.init(48000, -16, 1, 1024)
+        pygame.mixer.init(48000, -16, 2, 1024)
         
         self.sounds = []
         self.soundChannels = []
         self.lastPlayTimes = []
         self.delays = []
+        self.blipLengths = []
         
         id = 1
         for filename in filenames:
@@ -35,6 +38,7 @@ class PyGameSoundThread (Thread):
             id = id + 1
             self.lastPlayTimes.append(0)
             self.delays.append(10.0)
+            self.blipLengths.append(self.defaultBlipLength)
         
         # Old stuff
         self.is_robotting = True
@@ -42,11 +46,11 @@ class PyGameSoundThread (Thread):
     def run(self):
         while self.is_robotting:
             for i in range(len(self.sounds)):
-                if time.time() > self.lastPlayTimes[i] + self.blipLength + self.delays[i]:
+                if time.time() > self.lastPlayTimes[i] + self.blipLengths[i] + self.delays[i]:
                     #print("beep: " + str(i))
                     self.soundChannels[i].play(self.sounds[i])
 	            self.lastPlayTimes[i] = time.time()
-	        if time.time() > self.lastPlayTimes[i] + self.blipLength:
+	        if time.time() > self.lastPlayTimes[i] + self.blipLengths[i]:
                     self.soundChannels[i].stop()
 		
 	    time.sleep(.001) 

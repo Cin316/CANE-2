@@ -17,6 +17,6 @@ class LaserSensorSoundTransfer (Thread):
     
     def toFreq(self, statusBool):
         if statusBool == True:
-            return 0.2
+            return 1/2.5
         else:
             return 1.0e-6

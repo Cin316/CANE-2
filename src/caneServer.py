@@ -34,18 +34,18 @@ class CANEServer (Thread):
         connection_address = self.client_info[0]
 
         while connection_address == client_address: # TODO Improve client address checking.
-            print("pinging the client...")
+            #print("pinging the client...")
             
             sideData = self.sideUltrasonicCommand()
-            print("sideData: " + str(sideData))
+            #print("sideData: " + str(sideData))
             self.sideLeftServerComm.blipsFrequency = float(sideData)
             
             frontData = self.frontUltrasonicCommand()
-            print("frontData: " + str(frontData))
+            #print("frontData: " + str(frontData))
             self.frontLeftServerComm.blipsFrequency = float(frontData)
             
             dropOffData = self.dropOffCommand()
-            print("dropOffData: " + str(dropOffData))
+            #print("dropOffData: " + str(dropOffData))
             self.dummyLaser.value = self.convertBool(dropOffData)
             
             time.sleep(0.1)
