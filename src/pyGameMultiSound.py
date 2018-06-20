@@ -3,6 +3,7 @@ from os import system
 import time
 import subprocess
 import pygame
+import commands
 
 
 class PyGameSoundThread (Thread):
@@ -23,7 +24,7 @@ class PyGameSoundThread (Thread):
         
 	self.defaultBlipLength = 0.075
         
-        pygame.mixer.init(48000, -16, 2, 1024)
+        pygame.init()
         
         self.sounds = []
         self.soundChannels = []
@@ -62,4 +63,5 @@ class PyGameSoundThread (Thread):
     # safely kill the thread
     def terminate(self):
         self.is_robotting = False
+    
 

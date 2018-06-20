@@ -1,7 +1,6 @@
 import pygame.mixer
 from time import sleep
 
-
 pygame.mixer.init(48000, -16, 1, 1024)
 
 sndA = pygame.mixer.Sound("A.wav")
