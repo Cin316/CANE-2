@@ -1,0 +1,57 @@
+sudo nmap -sP 10.0.1.1/24 
+  - This requires that you have nmap and ssh installed on your local machine, and that it's on the same network as the Raspberry Pi. 
+ssh pi@10.0.1.43` 
+  - Login as user pi, password raspberry
+
+The Raspberry Pi automatically connects to my home network, so I can scan for it and SSH on to it. 
+  - Note that you will have to adapt the first 3 numbers of the nmap command to match the subnet of your local network. 
+    - A.B.C.1/24 
+  - You will also have to use the IP address for the Pi outputted by nmap as the destination for the SSH. 
+
+Once you're on the Pi, you can move around and run programs. 
+The Bluetooth headphones should automatically connect if you turn them on after the Pi starts. 
+I currently have the Raspberry Pi set to NOT run the CANE program on startup. 
+  - This is the missing piece of the puzzle.  I can't figure out how to get this to work. 
+To manually start CANE, do the following after SSHing onto the Pi. 
+Navigate to ~/CANE-2 
+  - cd ~/CANE-2 
+Use the aplay command to test if the connection to the headphone works.  There's a .wav sound file to test with. 
+  - aplay 20second_sine.wav 
+Use Ctrl-C to terminate that program. 
+Now you can attempt to start CANE. 
+Run the startCANEServer.sh script. 
+  - sh startCANEServer.sh 
+CANE should now be running.  It should wait for headphones to connect if they're not already connected. 
+At that time, you can start the CANE client on the other Raspberry Pi. 
+To do so, run the CANE-client.py python program in the ~/CANE-2 folder on the other Pi. 
+Note: to see if you're on the server or client Pi, look for a file named ASDFG in the home directory of the Pi.  This is an easy way to tell the difference between the two. 
+  - The file will look like one of these 
+    - I_am_the_server_Pi.txt 
+    - I_am_the_client_Pi.txt 
+Stopping CANE is a pain right now.  To do so: 
+  - Try pressing Ctrl-C to terminate the program normally. 
+  - When that doesn't work, press Ctrl-Z to suspend the process and put it in the background. 
+  - Now use `htop` to find the PID of any CANE-related process. 
+  - Use `kill –9 PID` to kill it. 
+  - You will probably need to completely restart the Pi to get CANE to run again. 
+Shutdown button: 
+  - The shutdown button functionality it a completely separate program, shutdown_button.py in the ~/CANE-2 folder 
+  - It should be run on startup. 
+  - It's currently launched in the /etc/rc.local file. 
+In order to get CANE to run properly on startup, I think you need to get the Pi to automatically login, and then run the CANE program as if a user were running it. 
+  - This makes everything happen properly so that Bluetooth and audio stuff is set up. 
+  - I think that's the key to getting CANE completely headless and automatic. 
+Note: the ~/.bashrc file is another place where you can run things whenever the user logs in, but I've tried it and I don't think it works for our purposes. 
+Note: if you mess up the /etc/rc.local file, it could cause the Pi not to boot. 
+`bluetoothctl` is a useful command line tool. 
+  - It can help you get the bluetooth headphones paired and auto-connecting.
+To turn the headphones on and off, hold the "plus volume" button for 3 seconds. 
+  - 6 seconds of holding the "plus volume" button will put it into pairing mode. 
+
+Refer to the extensive OneNote notes that have been made over the past few years, especially the "CANE Notebook 2017" (which is actually the notebook for Spring-Summer 2018 and is named wrong). 
+Please contact me at reichertsoftware@gmail.com or via GroupMe with any questions.  I really want this project to work, and I'm disappointed I couldn't finish it. 
+
+Good luck! 
+
+-- 
+Nicholas Reichert 
